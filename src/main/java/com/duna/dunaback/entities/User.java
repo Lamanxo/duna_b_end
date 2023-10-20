@@ -13,7 +13,6 @@ import java.util.Set;
 @Table(name = "users")
 @Setter
 @Getter
-@RequiredArgsConstructor
 public class User {
     @Id
     @Column(name = "id")
