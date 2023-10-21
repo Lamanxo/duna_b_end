@@ -1,4 +1,4 @@
-package com.duna.dunaback.exception;
+package com.duna.dunaback.exceptions;
 
 import lombok.Data;
 

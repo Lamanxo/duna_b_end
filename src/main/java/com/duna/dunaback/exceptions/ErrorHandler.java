@@ -1,10 +1,12 @@
-package com.duna.dunaback.exception;
+package com.duna.dunaback.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import com.duna.dunaback.exceptions.registration.RegistrationException;
 
 @RestControllerAdvice
 public class ErrorHandler {
@@ -17,7 +19,13 @@ public class ErrorHandler {
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorResponse registrationError(final UserAlreadyExistException e) {
+    public ErrorResponse registrationError(final RegistrationException e) {
+        return new ErrorResponse(HttpStatus.BAD_REQUEST.value(), e.getMessage());
+    }
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse validationError(final MethodArgumentNotValidException e) {
         return new ErrorResponse(HttpStatus.BAD_REQUEST.value(), e.getMessage());
     }
 

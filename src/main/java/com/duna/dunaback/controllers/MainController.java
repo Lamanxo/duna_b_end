@@ -1,22 +1,18 @@
 package com.duna.dunaback.controllers;
 
-import com.duna.dunaback.dtos.RegistrationUserDtoOut;
-import com.duna.dunaback.entities.Role;
-import com.duna.dunaback.repo.RoleRepo;
-import com.duna.dunaback.services.TestService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+import com.duna.dunaback.entities.Role;
+import com.duna.dunaback.service.RoleService;
 
 import java.security.Principal;
+
 @RestController
 @RequiredArgsConstructor
-public class TestController {
+public class MainController {
+    private final RoleService roleService;
 
-    private final TestService testService;
-
-    private final RoleRepo roleRepo;
     @GetMapping("/unsecured")
     public String unsecuredData() {
         return "Unsecured data";
@@ -37,14 +33,14 @@ public class TestController {
         return principal.getName();
     }
 
-    @GetMapping("/user/{id}")
-    public RegistrationUserDtoOut getUserById(@PathVariable("id") Long id) {
-        return testService.getUserById(id);
-    }
+    //Test
 
-    @GetMapping("/role/{id}")
-    public Role getRoleById(@PathVariable("id") Long id) {
-        return roleRepo.findById(id).get();
+    @GetMapping("/role/user")
+    public Role getUserRole() {
+        return roleService.getUserRole();
     }
-
+    @GetMapping("/role/admin")
+    public Role getAdminRole() {
+        return roleService.getAdminRole();
+    }
 }

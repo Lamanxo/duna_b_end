@@ -17,17 +17,19 @@ import java.util.stream.Collectors;
 
 @Component
 public class JwtTokenUtils {
-
     @Value("${jwt.secret}")
     private String secret;
+
     @Value("${jwt.lifetime}")
     private Duration jwtLifetime;
 
     public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
-        List<String> roleList = userDetails.getAuthorities().stream()
-                .map(GrantedAuthority::getAuthority).collect(Collectors.toList());
-        claims.put("role", roleList);
+        List<String> rolesList = userDetails.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.toList());
+        claims.put("roles", rolesList);
+
         Date issuedDate = new Date();
         Date expiredDate = new Date(issuedDate.getTime() + jwtLifetime.toMillis());
         return Jwts.builder()

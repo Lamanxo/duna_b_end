@@ -1,28 +1,28 @@
 package com.duna.dunaback.controllers;
 
-import com.duna.dunaback.dtos.JwtRequest;
-import com.duna.dunaback.dtos.JwtResponse;
-import com.duna.dunaback.dtos.RegistrationUserDto;
-import com.duna.dunaback.dtos.RegistrationUserDtoOut;
-import com.duna.dunaback.services.AuthService;
+import com.duna.dunaback.dtos.UserDtoOut;
 import lombok.RequiredArgsConstructor;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import com.duna.dunaback.dtos.JwtRequest;
+import com.duna.dunaback.dtos.JwtResponse;
+import com.duna.dunaback.dtos.RegistrationUserDto;
+import com.duna.dunaback.service.AuthService;
 
 @RestController
 @RequiredArgsConstructor
 public class AuthController {
-private final AuthService authService;
+    private final AuthService authService;
 
     @PostMapping("/auth")
-    public JwtResponse createAuthToken(@RequestBody JwtRequest request) {
-        return authService.makeAuthToken(request);
+    public JwtResponse createAuthToken(@RequestBody JwtRequest authRequest) {
+        return authService.createAuthToken(authRequest);
     }
 
     @PostMapping("/registration")
-    public RegistrationUserDtoOut createNewUser(@RequestBody RegistrationUserDto dto) {
-        return authService.createNewUser(dto);
+    public UserDtoOut createNewUser(@RequestBody @Validated RegistrationUserDto registrationUserDto) {
+        return authService.createNewUser(registrationUserDto);
     }
-
 }
