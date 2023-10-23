@@ -6,7 +6,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import com.duna.dunaback.exceptions.registration.RegistrationException;
+import com.duna.dunaback.exceptions.authreg.AuthOrRegistrationException;
 
 @RestControllerAdvice
 public class ErrorHandler {
@@ -19,7 +19,7 @@ public class ErrorHandler {
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorResponse registrationError(final RegistrationException e) {
+    public ErrorResponse registrationError(final AuthOrRegistrationException e) {
         return new ErrorResponse(HttpStatus.BAD_REQUEST.value(), e.getMessage());
     }
 

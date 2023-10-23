@@ -2,8 +2,7 @@ package com.duna.dunaback.service;
 
 import com.duna.dunaback.dtos.RegistrationUserDto;
 import com.duna.dunaback.dtos.UserDtoOut;
-import com.duna.dunaback.exceptions.registration.PhoneAlreadyExistException;
-import com.duna.dunaback.exceptions.registration.UsernameAlreadyExistException;
+import com.duna.dunaback.exceptions.authreg.*;
 import com.duna.dunaback.repositories.UserRepo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.duna.dunaback.entities.User;
-import com.duna.dunaback.exceptions.registration.EmailAlreadyExistException;
 
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -42,10 +40,20 @@ public class UserService implements UserDetailsService {
         this.userRepo = userRepo;
     }
 
+    //test
     public User getUserById(Long id) {
         return userRepo.findById(id).orElseThrow(()-> new UsernameNotFoundException("User with id " + id + "not found"));
     }
 
+    public User getUserByPhone(String phone) {
+        return userRepo.findByPhone(phone).orElseThrow(()->
+                new PhoneNotFoundException("Phone number " + phone + " not found"));
+    }
+
+    public User getUserByEmail(String email) {
+        return userRepo.findByEmail(email).orElseThrow(()->
+                new EmailNotFoundException("User with email " + email + " not found"));
+    }
     public User getUserByUsername(String username) {
         return userRepo.findByUsername(username).orElseThrow(() ->
                 new UsernameNotFoundException("User with name " + username + "not found"));
@@ -54,7 +62,7 @@ public class UserService implements UserDetailsService {
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = getUserByUsername(username);
+        User user = getUserByPhone(username);
         return new org.springframework.security.core.userdetails.User(
                 user.getUsername(),
                 user.getPassword(),

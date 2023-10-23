@@ -21,7 +21,7 @@ public class AuthController {
         return authService.createAuthToken(authRequest);
     }
 
-    @PostMapping("/registration")
+    @PostMapping("/sign_up")
     public UserDtoOut createNewUser(@RequestBody @Validated RegistrationUserDto registrationUserDto) {
         return authService.createNewUser(registrationUserDto);
     }
