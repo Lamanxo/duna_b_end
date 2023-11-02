@@ -22,11 +22,11 @@ public class AuthService {
 
     public JwtResponse createAuthToken(@RequestBody JwtRequest authRequest) {
         try {
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getPhone(), authRequest.getPassword()));
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword()));
         } catch (BadCredentialsException e) {
             throw new BadCredentialsException("Неправильный логин или пароль");
         }
-        UserDetails userDetails = userService.loadUserByUsername(authRequest.getPhone());
+        UserDetails userDetails = userService.loadUserByUsername(authRequest.getEmail());
         String token = jwtTokenUtils.generateToken(userDetails);
         return new JwtResponse(token);
     }

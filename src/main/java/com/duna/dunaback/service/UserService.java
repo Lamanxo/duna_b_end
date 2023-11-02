@@ -4,6 +4,7 @@ import com.duna.dunaback.dtos.RegistrationUserDto;
 import com.duna.dunaback.dtos.UserDtoOut;
 import com.duna.dunaback.exceptions.authreg.*;
 import com.duna.dunaback.repositories.UserRepo;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -20,25 +21,14 @@ import java.util.stream.Collectors;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class UserService implements UserDetailsService {
 
-    private RoleService roleService;
-    private PasswordEncoder passwordEncoder;
-    private UserRepo userRepo;
 
-    @Autowired
-    public void setRoleService(RoleService roleService) {
-        this.roleService = roleService;
-    }
+    private final RoleService roleService;
+    private final PasswordEncoder passwordEncoder;
+    private final UserRepo userRepo;
 
-    @Autowired
-    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
-        this.passwordEncoder = passwordEncoder;
-    }
-    @Autowired
-    public void setUserRepo(UserRepo userRepo) {
-        this.userRepo = userRepo;
-    }
 
     //test
     public User getUserById(Long id) {
@@ -62,7 +52,7 @@ public class UserService implements UserDetailsService {
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = getUserByPhone(username);
+        User user = getUserByEmail(username);
         return new org.springframework.security.core.userdetails.User(
                 user.getUsername(),
                 user.getPassword(),
