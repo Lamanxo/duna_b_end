@@ -6,7 +6,6 @@ import com.duna.dunaback.exceptions.authreg.*;
 import com.duna.dunaback.repositories.UserRepo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -53,6 +52,10 @@ public class UserService implements UserDetailsService {
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = getUserByEmail(username);
+        if(!user.isActive())
+            throw new UserIsBlockedException("User: " + user.getUsername() + " is blocked");
+        if(!user.isVerified())
+            throw new UserNotVerifiedException("User: " + user.getUsername() + " is not verified");
         return new org.springframework.security.core.userdetails.User(
                 user.getUsername(),
                 user.getPassword(),

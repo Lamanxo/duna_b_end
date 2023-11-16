@@ -31,6 +31,10 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private Set<Role> roles;
+    @Column(name = "is_active")
+    private boolean isActive;
+    @Column(name = "is_verified")
+    private boolean isVerified;
 
     @Override
     public boolean equals(Object o) {

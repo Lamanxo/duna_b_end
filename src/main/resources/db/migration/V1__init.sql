@@ -4,6 +4,8 @@ create table users (
   password              varchar(80) not null,
   phone                 varchar(80) not null unique,
   email                 varchar(50) unique,
+  is_active             boolean,
+  is_verified           boolean,
   primary key (id)
 );
 
@@ -25,10 +27,10 @@ insert into roles (name)
 values
 ('ROLE_USER'), ('ROLE_ADMIN');
 
-insert into users (username, password, phone, email)
+insert into users (username, password, phone, email, is_active, is_verified)
 values
-('user', '$2a$04$Fx/SX9.BAvtPlMyIIqqFx.hLY2Xp8nnhpzvEEVINvVpwIPbA3v/.i', '+79286669999', 'user@gmail.com'),
-('admin', '$2a$04$Fx/SX9.BAvtPlMyIIqqFx.hLY2Xp8nnhpzvEEVINvVpwIPbA3v/.i', '+79288900666', 'admin@gmail.com');
+('user', '$2a$04$Fx/SX9.BAvtPlMyIIqqFx.hLY2Xp8nnhpzvEEVINvVpwIPbA3v/.i', '+79286669999', 'user@gmail.com', true, true),
+('admin', '$2a$04$Fx/SX9.BAvtPlMyIIqqFx.hLY2Xp8nnhpzvEEVINvVpwIPbA3v/.i', '+79288900666', 'admin@gmail.com', false, false);
 
 insert into users_roles (user_id, role_id)
 values
