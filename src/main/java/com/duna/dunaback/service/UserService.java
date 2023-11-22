@@ -2,6 +2,7 @@ package com.duna.dunaback.service;
 
 import com.duna.dunaback.dtos.RegistrationUserDto;
 import com.duna.dunaback.dtos.UserDtoOut;
+import com.duna.dunaback.entities.EmailToken;
 import com.duna.dunaback.exceptions.authreg.*;
 import com.duna.dunaback.repositories.UserRepo;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +16,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.duna.dunaback.entities.User;
 
+import java.time.LocalDateTime;
 import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -27,6 +30,8 @@ public class UserService implements UserDetailsService {
     private final RoleService roleService;
     private final PasswordEncoder passwordEncoder;
     private final UserRepo userRepo;
+
+    private final EmailTokenService emailTokenService;
 
 
     //test
@@ -65,9 +70,13 @@ public class UserService implements UserDetailsService {
 
     public UserDtoOut createNewUser(RegistrationUserDto dto) {
         newUserValidation(dto);
-        User user = makeUser(dto);
+        User user = userRepo.save(makeUser(dto));
+
+        String token = UUID.randomUUID().toString();
+        EmailToken emailToken = new EmailToken(token, LocalDateTime.now(),LocalDateTime.now().plusMinutes(30),user);
+        emailTokenService.saveEmailToken(emailToken);
         log.warn("New user {}, {}, {}", user.getUsername(),user.getEmail(), user.getPhone());
-        return makeUserDtoOut(userRepo.save(user));
+        return makeUserDtoOut(user);
     }
 
     private UserDtoOut makeUserDtoOut(User user) {

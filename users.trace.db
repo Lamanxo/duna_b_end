@@ -1,22 +1,25 @@
-2023-11-16 15:35:50 jdbc[4]: exception
-org.h2.jdbc.JdbcSQLSyntaxErrorException: Неверное количество столбцов
-Column count does not match; SQL statement:
-insert into users (username, password, phone, email)
-values
-('user', '$2a$04$Fx/SX9.BAvtPlMyIIqqFx.hLY2Xp8nnhpzvEEVINvVpwIPbA3v/.i', '+79286669999', 'user@gmail.com', false, false),
-('admin', '$2a$04$Fx/SX9.BAvtPlMyIIqqFx.hLY2Xp8nnhpzvEEVINvVpwIPbA3v/.i', '+79288900666', 'admin@gmail.com', false, false) [21002-214]
-	at org.h2.message.DbException.getJdbcSQLException(DbException.java:502)
+2023-11-22 16:49:07 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Ограничение "PRIMARY KEY | UNIQUE (ID)" не найдено
+Constraint "PRIMARY KEY | UNIQUE (ID)" not found; SQL statement:
+create table users_email_tokens (
+  user_id               bigserial not null,
+  email_token_id        bigserial not null,
+  primary key (user_id, email_token_id),
+  foreign key (user_id) references users(id),
+  foreign key (email_token_id) references email_token(id)
+) [90057-214]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:632)
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:477)
 	at org.h2.message.DbException.get(DbException.java:223)
 	at org.h2.message.DbException.get(DbException.java:199)
-	at org.h2.message.DbException.get(DbException.java:188)
-	at org.h2.command.dml.Insert.doPrepare(Insert.java:295)
-	at org.h2.command.dml.DataChangeStatement.prepare(DataChangeStatement.java:37)
-	at org.h2.command.Parser.prepareCommand(Parser.java:575)
-	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:631)
-	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:554)
-	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1116)
-	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:237)
+	at org.h2.command.ddl.AlterTableAddConstraint.tryUpdate(AlterTableAddConstraint.java:258)
+	at org.h2.command.ddl.AlterTableAddConstraint.update(AlterTableAddConstraint.java:72)
+	at org.h2.command.ddl.AlterTable.update(AlterTable.java:46)
+	at org.h2.command.ddl.CommandWithColumns.createConstraints(CommandWithColumns.java:83)
+	at org.h2.command.ddl.CreateTable.update(CreateTable.java:134)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:169)
+	at org.h2.command.Command.executeUpdate(Command.java:252)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:252)
 	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:223)
 	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:94)
 	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
@@ -66,25 +69,28 @@ values
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1303)
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1292)
 	at com.duna.dunaback.DunaBackApplication.main(DunaBackApplication.java:9)
-2023-11-16 15:38:00 jdbc[4]: exception
-org.h2.jdbc.JdbcSQLSyntaxErrorException: Неверное количество столбцов
-Column count does not match; SQL statement:
-insert into users (username, password, phone, email)
-values
-('user', '$2a$04$Fx/SX9.BAvtPlMyIIqqFx.hLY2Xp8nnhpzvEEVINvVpwIPbA3v/.i', '+79286669999', 'user@gmail.com', 0, 0),
-('admin', '$2a$04$Fx/SX9.BAvtPlMyIIqqFx.hLY2Xp8nnhpzvEEVINvVpwIPbA3v/.i', '+79288900666', 'admin@gmail.com', 0, 0) [21002-214]
-	at org.h2.message.DbException.getJdbcSQLException(DbException.java:502)
+2023-11-22 17:34:19 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Ограничение "PRIMARY KEY | UNIQUE (ID)" не найдено
+Constraint "PRIMARY KEY | UNIQUE (ID)" not found; SQL statement:
+create table users_email_tokens (
+  user_id               bigserial not null,
+  email_token_id        bigserial not null,
+  primary key (user_id, email_token_id),
+  foreign key (user_id) references users(id),
+  foreign key (email_token_id) references email_token(id)
+) [90057-214]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:632)
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:477)
 	at org.h2.message.DbException.get(DbException.java:223)
 	at org.h2.message.DbException.get(DbException.java:199)
-	at org.h2.message.DbException.get(DbException.java:188)
-	at org.h2.command.dml.Insert.doPrepare(Insert.java:295)
-	at org.h2.command.dml.DataChangeStatement.prepare(DataChangeStatement.java:37)
-	at org.h2.command.Parser.prepareCommand(Parser.java:575)
-	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:631)
-	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:554)
-	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1116)
-	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:237)
+	at org.h2.command.ddl.AlterTableAddConstraint.tryUpdate(AlterTableAddConstraint.java:258)
+	at org.h2.command.ddl.AlterTableAddConstraint.update(AlterTableAddConstraint.java:72)
+	at org.h2.command.ddl.AlterTable.update(AlterTable.java:46)
+	at org.h2.command.ddl.CommandWithColumns.createConstraints(CommandWithColumns.java:83)
+	at org.h2.command.ddl.CreateTable.update(CreateTable.java:134)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:169)
+	at org.h2.command.Command.executeUpdate(Command.java:252)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:252)
 	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:223)
 	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:94)
 	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
