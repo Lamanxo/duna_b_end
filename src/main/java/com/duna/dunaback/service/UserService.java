@@ -75,6 +75,7 @@ public class UserService implements UserDetailsService {
         String token = UUID.randomUUID().toString();
         EmailToken emailToken = new EmailToken(token, LocalDateTime.now(),LocalDateTime.now().plusMinutes(30),user);
         emailTokenService.saveEmailToken(emailToken);
+        //send email with token
         log.warn("New user {}, {}, {}", user.getUsername(),user.getEmail(), user.getPhone());
         return makeUserDtoOut(user);
     }

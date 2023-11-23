@@ -15,6 +15,7 @@ create table email_token (
   created_at            datetime,
   expires_at            datetime,
   confirmed_at          datetime,
+  user_id               bigserial,
   primary key (id)
 );
 
@@ -22,14 +23,6 @@ create table roles (
   id                    bigserial,
   name                  varchar(50) not null,
   primary key (id)
-);
-
-create table users_email_tokens (
-  user_id               bigserial not null,
-  email_token_id        bigserial not null,
-  primary key (user_id, email_token_id),
-  foreign key (user_id) references users(id),
-  foreign key (email_token_id) references email_token(id)
 );
 
 CREATE TABLE users_roles (

@@ -25,13 +25,7 @@ public class EmailToken {
     @Column(name = "confirmed_at")
     private LocalDateTime confirmedAt;
     @ManyToOne
-    @JoinTable(
-            name = "users_email_tokens",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "email_token_id")
-
-    )
-
+    @JoinColumn(name = "user_id")
     private User user;
 
     public EmailToken(String token, LocalDateTime createdAt, LocalDateTime expiresAt, User user) {
