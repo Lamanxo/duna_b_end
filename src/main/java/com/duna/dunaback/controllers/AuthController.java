@@ -1,6 +1,7 @@
 package com.duna.dunaback.controllers;
 
 import com.duna.dunaback.dtos.UserDtoOut;
+import com.duna.dunaback.service.EmailSenderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
