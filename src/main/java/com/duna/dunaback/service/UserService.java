@@ -30,8 +30,8 @@ public class UserService implements UserDetailsService {
     private final RoleService roleService;
     private final PasswordEncoder passwordEncoder;
     private final UserRepo userRepo;
-
     private final EmailTokenService emailTokenService;
+    private final EmailSenderService emailSenderService;
 
 
     //test
@@ -76,6 +76,7 @@ public class UserService implements UserDetailsService {
         EmailToken emailToken = new EmailToken(token, LocalDateTime.now(),LocalDateTime.now().plusMinutes(30),user);
         emailTokenService.saveEmailToken(emailToken);
         //send email with token
+        emailSenderService.sendEmail(user.getEmail(), token);
         log.warn("New user {}, {}, {}", user.getUsername(),user.getEmail(), user.getPhone());
         return makeUserDtoOut(user);
     }

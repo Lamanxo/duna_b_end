@@ -12,9 +12,9 @@ create table users (
 create table email_token (
   id                    bigserial,
   token                 varchar(256) not null,
-  created_at            datetime,
-  expires_at            datetime,
-  confirmed_at          datetime,
+  created_at            date,
+  expires_at            date,
+  confirmed_at          date,
   user_id               bigserial,
   primary key (id)
 );
