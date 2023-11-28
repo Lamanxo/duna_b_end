@@ -57,10 +57,11 @@ public class UserService implements UserDetailsService {
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = getUserByEmail(username);
-        if(!user.isActive())
-            throw new UserIsBlockedException("User: " + user.getUsername() + " is blocked");
         if(!user.isVerified())
             throw new UserNotVerifiedException("User: " + user.getUsername() + " is not verified");
+        if(!user.isActive())
+            throw new UserIsBlockedException("User: " + user.getUsername() + " is blocked");
+
         return new org.springframework.security.core.userdetails.User(
                 user.getUsername(),
                 user.getPassword(),
@@ -71,15 +72,31 @@ public class UserService implements UserDetailsService {
     public UserDtoOut createNewUser(RegistrationUserDto dto) {
         newUserValidation(dto);
         User user = userRepo.save(makeUser(dto));
-
         String token = UUID.randomUUID().toString();
         EmailToken emailToken = new EmailToken(token, LocalDateTime.now(),LocalDateTime.now().plusMinutes(30),user);
         emailTokenService.saveEmailToken(emailToken);
-        //send email with token
-        emailSenderService.sendEmail(user.getEmail(), token);
+        emailSenderService.sendVerificationEmail(user.getEmail(), token);
         log.warn("New user {}, {}, {}", user.getUsername(),user.getEmail(), user.getPhone());
         return makeUserDtoOut(user);
     }
+
+    public String userEmailVerification(String token) {
+        EmailToken emailToken = emailTokenService.getEmailTokenByToken(token);
+        if(emailToken.getConfirmedAt() != null) {
+            throw new UserAlreadyVerificatedException("User: " + emailToken.getUser().getUsername()
+                    + " already verificated");
+        }
+        if(LocalDateTime.now().isBefore(emailToken.getExpiresAt())) {
+            throw new EmailTokenExpiredException("Email token lifetime expired");
+        }
+        emailToken.setConfirmedAt(LocalDateTime.now());
+        User user = emailToken.getUser();
+        user.setActive(true);
+        user.setVerified(true);
+        userRepo.save(user);
+        return "User's " + user.getUsername() + " verification complete";
+    }
+
 
     private UserDtoOut makeUserDtoOut(User user) {
         return new UserDtoOut(user.getId(), user.getUsername(), user.getPhone(), user.getEmail());

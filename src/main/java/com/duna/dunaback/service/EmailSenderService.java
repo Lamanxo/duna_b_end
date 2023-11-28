@@ -10,14 +10,13 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class EmailSenderService {
 
-
     private final JavaMailSender mailSender;
 
     @Value("${spring.mail.username}")
     private String fromMail;
 
     //test
-    public void sendEmail(String to, String token) {
+    public void sendVerificationEmail(String to, String token) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom(fromMail);
         message.setTo(to);
@@ -25,4 +24,5 @@ public class EmailSenderService {
         message.setSubject("registration test");
         mailSender.send(message);
     }
+
 }

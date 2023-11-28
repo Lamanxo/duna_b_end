@@ -1,7 +1,7 @@
 package com.duna.dunaback.controllers;
 
 import com.duna.dunaback.dtos.UserDtoOut;
-import com.duna.dunaback.service.EmailSenderService;
+import com.duna.dunaback.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +15,8 @@ import com.duna.dunaback.service.AuthService;
 public class AuthController {
     private final AuthService authService;
 
+    private final UserService userService;
+
     @PostMapping("/auth")
     public JwtResponse createAuthToken(@RequestBody JwtRequest authRequest) {
         return authService.createAuthToken(authRequest);
@@ -27,7 +29,7 @@ public class AuthController {
 
     //TODO finish
     @GetMapping(path = "/sign_up/confirm")
-    public String confirm(@RequestParam("token") String token) {
-        return token;
+    public String confirmUserEmail(@RequestParam("token") String token) {
+        return userService.userEmailVerification(token);
     }
 }
