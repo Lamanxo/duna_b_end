@@ -19,6 +19,14 @@ create table email_token (
   primary key (id)
 );
 
+create table file_data (
+  id                int,
+  name              varchar,
+  type              varchar,
+  file_path          varchar,
+  primary key (id)
+)
+
 create table roles (
   id                    bigserial,
   name                  varchar(50) not null,
