@@ -2,12 +2,13 @@ package com.duna.dunaback.entities;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
-@NoArgsConstructor
+@RequiredArgsConstructor
 @Setter
 @Getter
 @Table(name = "file_data")
@@ -22,4 +23,10 @@ public class FileData {
     private String type;
     @Column(name = "file_path")
     private String filePath;
+
+    public FileData(String name, String type, String filePath) {
+        this.name = name;
+        this.type = type;
+        this.filePath = filePath;
+    }
 }

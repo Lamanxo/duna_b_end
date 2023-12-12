@@ -20,12 +20,12 @@ create table email_token (
 );
 
 create table file_data (
-  id                int,
+  id                bigserial,
   name              varchar,
   type              varchar,
-  file_path          varchar,
+  file_path         varchar,
   primary key (id)
-)
+);
 
 create table roles (
   id                    bigserial,
