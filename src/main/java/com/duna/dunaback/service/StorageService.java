@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.persistence.EntityNotFoundException;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -36,8 +37,8 @@ public class StorageService {
     }
 
     public byte[] downloadImageFromFileSystem(String fileName) throws IOException {
-        Optional<FileData> fileData = dataRepo.findByName(fileName);
-        String filePath=fileData.get().getFilePath();
+        FileData fileData = dataRepo.findByName(fileName).orElseThrow(() -> new EntityNotFoundException("File not found"));
+        String filePath=fileData.getFilePath();
         byte[] images = Files.readAllBytes(new File(filePath).toPath());
         return images;
     }
