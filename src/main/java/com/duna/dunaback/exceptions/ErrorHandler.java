@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import com.duna.dunaback.exceptions.authreg.AuthOrRegistrationException;
 
 import javax.persistence.EntityNotFoundException;
+import java.io.FileNotFoundException;
 
 @RestControllerAdvice
 public class ErrorHandler {
@@ -40,7 +41,7 @@ public class ErrorHandler {
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorResponse emptyUploadFile(final FileExistsException e) {
+    public ErrorResponse emptyUploadFile(final FileNotFoundException e) {
         return new ErrorResponse(HttpStatus.BAD_REQUEST.value(), e.getMessage());
     }
 

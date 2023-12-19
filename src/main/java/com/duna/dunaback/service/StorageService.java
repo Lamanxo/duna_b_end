@@ -3,13 +3,14 @@ package com.duna.dunaback.service;
 import com.duna.dunaback.entities.FileData;
 import com.duna.dunaback.repositories.FileDataRepo;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.io.FileExistsException;
 import org.apache.commons.io.FilenameUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityNotFoundException;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.UUID;
@@ -20,11 +21,12 @@ public class StorageService {
 
     private final FileDataRepo dataRepo;
 
-    private final static String FOLDER_PATH = "c:/DunaFiles/";
+    @Value("${app-settings.folder-name}")
+    private String FOLDER_PATH;
 
     public String uploadImageToFileSystem(MultipartFile file) throws IOException {
         if (file.isEmpty())
-            throw new FileExistsException("File not found");
+            throw new FileNotFoundException("File not found");
         String extension = FilenameUtils.getExtension(file.getOriginalFilename());
         String newFilename = UUID.randomUUID() + "." + extension;
         while (dataRepo.findByName(newFilename).isPresent()) {
