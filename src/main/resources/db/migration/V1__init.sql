@@ -27,6 +27,19 @@ create table file_data (
   primary key (id)
 );
 
+create table vehicle_manufacturer (
+  id                bigserial,
+  name              varchar,
+  primary key (id)
+);
+
+create table vehicle_model (
+  id                bigserial,
+  name              varchar,
+  manufacturer_id   bigserial,
+  primary key (id)
+);
+
 create table roles (
   id                    bigserial,
   name                  varchar(50) not null,
