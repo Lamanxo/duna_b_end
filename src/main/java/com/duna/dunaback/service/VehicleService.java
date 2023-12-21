@@ -7,11 +7,19 @@ import com.duna.dunaback.repositories.VehicleModelRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class VehicleService {
-    private VehicleManufacturerRepo manufacturerRepo;
-    private VehicleModelRepo modelRepo;
+    private final VehicleManufacturerRepo manufacturerRepo;
+    private final VehicleModelRepo modelRepo;
 
+    public List<VehicleManufacturer> getAllManufacturers(String name) {
+        return manufacturerRepo.findAllByNameContainingIgnoreCaseOrderByNameAsc(name);
+    }
 
+    public List<VehicleModel> getAllModelsByManufacturerId(Long manufacturerId) {
+        return modelRepo.findAllByManufacturer_Id(manufacturerId);
+    }
 }

@@ -34,11 +34,12 @@ public class MainController {
     }
 
     //Test
-
     @GetMapping("/role/user")
     public Role getUserRole() {
         return roleService.getUserRole();
     }
+
+    //Test
     @GetMapping("/role/admin")
     public Role getAdminRole() {
         return roleService.getAdminRole();

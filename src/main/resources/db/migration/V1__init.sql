@@ -33,12 +33,20 @@ create table vehicle_manufacturer (
   primary key (id)
 );
 
+insert into vehicle_manufacturer (name)
+values
+('Toyota'), ('Cat'), ('Nissan');
+
 create table vehicle_model (
   id                bigserial,
   name              varchar,
   manufacturer_id   bigserial,
   primary key (id)
 );
+
+insert into vehicle_model (name, manufacturer_id)
+values
+('Mark V', 1), ('Mark III', 1), ('Mark VI', 1), ('Mark UwU', 2), ('Mark mrrrrr', 2);
 
 create table roles (
   id                    bigserial,
