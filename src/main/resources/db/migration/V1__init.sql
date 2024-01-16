@@ -33,20 +33,12 @@ create table vehicle_manufacturer (
   primary key (id)
 );
 
-insert into vehicle_manufacturer (name)
-values
-('Toyota'), ('Cat'), ('Nissan');
-
 create table vehicle_model (
   id                bigserial,
   name              varchar,
   manufacturer_id   bigserial,
   primary key (id)
 );
-
-insert into vehicle_model (name, manufacturer_id)
-values
-('Mark V', 1), ('Mark III', 1), ('Mark VI', 1), ('Mark UwU', 2), ('Mark mrrrrr', 2);
 
 create table roles (
   id                    bigserial,
@@ -61,6 +53,45 @@ CREATE TABLE users_roles (
   foreign key (user_id) references users (id),
   foreign key (role_id) references roles (id)
 );
+
+CREATE TABLE technic_type (
+    id                  bigserial,
+    name                varchar not null,
+    primary key (id)
+);
+
+CREATE TABLE order_technic (
+  id                            bigserial,
+  technic_type_id               bigserial,
+  vehicle_manufacturer_id       bigserial,
+  vehicle_model_id              bigserial,
+  manufacturing_date            bigserial,
+  additional_equipment          varchar,
+  images_id                     bigserial,
+  unit_amount                   bigserial,
+  shift_type_id                 bigserial,
+  address                       varchar,
+  occupation_start              date,
+  occupation_end                date,
+  occupation_days               bigserial,
+  additional_info               varchar,
+  price                         bigserial,
+  payment_unit_id               bigserial,
+  payment_type_id               bigserial,
+  user_id                       bigserial,
+  created_at                    date,
+  primary key (id)
+);
+
+
+
+insert into vehicle_manufacturer (name)
+values
+('Toyota'), ('Cat'), ('Nissan');
+
+insert into vehicle_model (name, manufacturer_id)
+values
+('Mark V', 1), ('Mark III', 1), ('Mark VI', 1), ('Mark UwU', 2), ('Mark mrrrrr', 2);
 
 insert into roles (name)
 values
