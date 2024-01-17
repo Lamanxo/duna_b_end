@@ -22,20 +22,20 @@ public class OrderTechnic {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "technic_type_id")
     private TechnicType technicType;
     @ManyToOne
     @JoinColumn(name = "vehicle_manufacturer_id")
     private VehicleManufacturer vehicleManufacturer;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "vehicle_model_id")
     private VehicleModel vehicleModel;
     @Column(name = "manufacturing_date")
     private Integer manufacturingDate;
     @Column(name = "additional_equipment")
     private String additionalEquipment;
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinTable
             (name = "order_technic",
             joinColumns = @JoinColumn (name = "order_id"),
