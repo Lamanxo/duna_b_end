@@ -36,7 +36,10 @@ public class OrderTechnic {
     @Column(name = "additional_equipment")
     private String additionalEquipment;
     @OneToMany
-    @Column(name = "images_id")
+    @JoinTable
+            (name = "order_technic",
+            joinColumns = @JoinColumn (name = "order_id"),
+            inverseJoinColumns = @JoinColumn(name = "image_id"))
     private List<FileData> images;
     @Column(name = "unit_amount")
     private Integer unitAmount;

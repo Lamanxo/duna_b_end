@@ -60,6 +60,8 @@ CREATE TABLE technic_type (
     primary key (id)
 );
 
+
+
 CREATE TABLE order_technic (
   id                            bigserial,
   technic_type_id               bigserial,
@@ -67,7 +69,6 @@ CREATE TABLE order_technic (
   vehicle_model_id              bigserial,
   manufacturing_date            bigserial,
   additional_equipment          varchar,
-  images_id                     bigserial,
   unit_amount                   bigserial,
   shift_type_id                 bigserial,
   address                       varchar,
@@ -83,7 +84,13 @@ CREATE TABLE order_technic (
   primary key (id)
 );
 
-
+CREATE TABLE images_orders (
+  order_id          bigserial not null,
+  image_id          bigserial not null,
+  primary key (order_id, image_id),
+  foreign key (order_id) references order_technic (id),
+  foreign key (image_id) references file_data (id)
+);
 
 insert into vehicle_manufacturer (name)
 values
