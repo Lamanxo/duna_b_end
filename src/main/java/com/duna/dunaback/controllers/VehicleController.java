@@ -1,5 +1,6 @@
 package com.duna.dunaback.controllers;
 
+import com.duna.dunaback.entities.TechnicType;
 import com.duna.dunaback.entities.VehicleManufacturer;
 import com.duna.dunaback.entities.VehicleModel;
 import com.duna.dunaback.service.VehicleService;
@@ -25,6 +26,11 @@ public class VehicleController {
     @GetMapping("/manufacturer/vehicle/{id}")
     public List<VehicleModel> getAllModelsByManufacturerId(@PathVariable Long id) {
         return vehicleService.getAllModelsByManufacturerId(id);
+    }
+
+    @GetMapping("/manufacturer/technic_type/{name}")
+    public List<TechnicType> getAllTechnicTypeByLetter(@PathVariable String name) {
+        return vehicleService.getAllTechnicTypeByLetter(name);
     }
 
 
