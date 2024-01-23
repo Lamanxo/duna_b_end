@@ -69,4 +69,9 @@ public class OrderTechnic {
     private User user;
     @Column(name = "created_at")
     private LocalDateTime createdAt;
+    @Column(name = "is_verified")
+    private boolean isVerified;
+    @Column(name = "is_active")
+    private boolean isActive;
+
 }

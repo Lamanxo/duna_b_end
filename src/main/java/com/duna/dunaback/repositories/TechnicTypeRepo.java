@@ -14,4 +14,6 @@ Optional<TechnicType> findById(Long id);
 
 List<TechnicType> findAllByNameContainingIgnoreCaseOrderByNameAsc(String name);
 
+Optional<TechnicType> findByName(String name);
+
 }

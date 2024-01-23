@@ -14,4 +14,6 @@ public interface VehicleManufacturerRepo extends JpaRepository<VehicleManufactur
 
     List<VehicleManufacturer> findAllByNameContainingIgnoreCaseOrderByNameAsc(String name);
 
+    Optional<VehicleManufacturer> findByName(String name);
+
 }

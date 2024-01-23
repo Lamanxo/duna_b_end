@@ -2,12 +2,14 @@ package com.duna.dunaback.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-
 @Data
 @AllArgsConstructor
-public class OrderTechnicIn {
+@NoArgsConstructor
+public class OrderTechnicOut {
+    private Long id;
     private String technicType;
     private String vehicleManufacturer;
     private String vehicleModel;

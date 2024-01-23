@@ -27,6 +27,12 @@ create table file_data (
   primary key (id)
 );
 
+CREATE TABLE technic_type (
+  id                  bigserial,
+  name                varchar not null,
+  primary key (id)
+);
+
 create table vehicle_manufacturer (
   id                bigserial,
   name              varchar,
@@ -54,14 +60,6 @@ CREATE TABLE users_roles (
   foreign key (role_id) references roles (id)
 );
 
-CREATE TABLE technic_type (
-    id                  bigserial,
-    name                varchar not null,
-    primary key (id)
-);
-
-
-
 CREATE TABLE order_technic (
   id                            bigserial,
   technic_type_id               bigserial,
@@ -81,6 +79,8 @@ CREATE TABLE order_technic (
   payment_type_id               bigserial,
   user_id                       bigserial,
   created_at                    date,
+  is_active                     boolean,
+  is_verified                   boolean,
   primary key (id)
 );
 
@@ -91,6 +91,9 @@ CREATE TABLE images_orders (
   foreign key (order_id) references order_technic (id),
   foreign key (image_id) references file_data (id)
 );
+
+insert into technic_type (name)
+values ('Tractor');
 
 insert into vehicle_manufacturer (name)
 values
