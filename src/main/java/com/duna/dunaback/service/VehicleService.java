@@ -3,7 +3,7 @@ package com.duna.dunaback.service;
 import com.duna.dunaback.entities.TechnicType;
 import com.duna.dunaback.entities.VehicleManufacturer;
 import com.duna.dunaback.entities.VehicleModel;
-import com.duna.dunaback.exceptions.VehicleNotFoundException;
+import com.duna.dunaback.exceptions.vehicles.VehicleNotFoundException;
 import com.duna.dunaback.repositories.TechnicTypeRepo;
 import com.duna.dunaback.repositories.VehicleManufacturerRepo;
 import com.duna.dunaback.repositories.VehicleModelRepo;

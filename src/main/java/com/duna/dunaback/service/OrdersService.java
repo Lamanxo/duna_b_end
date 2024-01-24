@@ -2,14 +2,19 @@ package com.duna.dunaback.service;
 
 import com.duna.dunaback.dtos.OrderTechnicIn;
 import com.duna.dunaback.dtos.OrderTechnicOut;
+import com.duna.dunaback.entities.FileData;
 import com.duna.dunaback.entities.OrderTechnic;
 import com.duna.dunaback.enums.PaymentType;
 import com.duna.dunaback.enums.PaymentUnit;
 import com.duna.dunaback.enums.ShiftType;
+import com.duna.dunaback.exceptions.orders.OrderNotFoundException;
+import com.duna.dunaback.exceptions.orders.UserNotOwnerOfOrderException;
 import com.duna.dunaback.repositories.OrderTechnicRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -22,10 +27,28 @@ public class OrdersService {
     private final VehicleService vehicleService;
     private final UserService userService;
 
+    private final StorageService storageService;
+
     public OrderTechnicOut addOrderTechnic(OrderTechnicIn technicIn, Principal principal) {
         OrderTechnic orderTechnic = makeOrderTechnic(technicIn, principal);
         return makeOrderTechnicOut(orderTechnicRepo.save(orderTechnic));
     }
+
+    public String addPhotoToOrder(MultipartFile file, Principal principal, Long orderId) throws IOException {
+        OrderTechnic orderTechnic = getOrderTechnicById(orderId);
+        if (!orderTechnic.getUser().getEmail().equals(principal.getName()))
+            throw new UserNotOwnerOfOrderException("User with email: " + principal.getName() + " not owns of order: " + orderId);
+        FileData fileData = storageService.uploadFileToFS(file);
+        orderTechnic.getImages().add(fileData);
+        orderTechnicRepo.save(orderTechnic);
+        return "Image added successfully";
+    }
+
+    public OrderTechnic getOrderTechnicById(Long id) {
+        return orderTechnicRepo.findById(id).orElseThrow(() ->
+                new OrderNotFoundException("OrderTechnic with id: " + id + " not found"));
+    }
+
 
     private OrderTechnicOut makeOrderTechnicOut(OrderTechnic technic) {
         OrderTechnicOut technicOut = new OrderTechnicOut();

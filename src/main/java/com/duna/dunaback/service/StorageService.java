@@ -25,6 +25,12 @@ public class StorageService {
     private String FOLDER_PATH;
 
     public String uploadImageToFileSystem(MultipartFile file) throws IOException {
+        FileData fileData = uploadFileToFS(file);
+
+        return "file uploaded successfully : " + FOLDER_PATH + fileData.getName();
+    }
+
+    public FileData uploadFileToFS(MultipartFile file) throws IOException {
         if (file.isEmpty())
             throw new FileNotFoundException("File not found");
         String extension = FilenameUtils.getExtension(file.getOriginalFilename());
@@ -40,8 +46,7 @@ public class StorageService {
                 filePath));
 
         file.transferTo(new File(filePath));
-
-        return "file uploaded successfully : " + filePath;
+        return fileData;
     }
 
     public byte[] downloadImageFromFileSystem(String fileName) throws IOException {
