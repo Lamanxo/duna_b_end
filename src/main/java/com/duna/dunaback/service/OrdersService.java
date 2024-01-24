@@ -66,7 +66,7 @@ public class OrdersService {
         technic.setPrice(technicIn.getPrice());
         technic.setPaymentUnit(PaymentUnit.values()[technicIn.getPaymentUnit()]);
         technic.setPaymentType(PaymentType.values()[technicIn.getPaymentType()]);
-        technic.setUser(userService.getUserByUsername(principal.getName()));
+        technic.setUser(userService.getUserByEmail(principal.getName()));
         technic.setCreatedAt(LocalDateTime.now());
         technic.setVerified(false);
         technic.setActive(false);
