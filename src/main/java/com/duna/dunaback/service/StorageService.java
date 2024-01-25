@@ -13,6 +13,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -23,14 +25,15 @@ public class StorageService {
 
     @Value("${app-settings.folder-name}")
     private String FOLDER_PATH;
-
+    //test------------
     public String uploadImageToFileSystem(MultipartFile file) throws IOException {
-        FileData fileData = uploadFileToFS(file);
+        FileData fileData = uploadFileToFS(file, null);
 
         return "file uploaded successfully : " + FOLDER_PATH + fileData.getName();
     }
+    //test---------------
 
-    public FileData uploadFileToFS(MultipartFile file) throws IOException {
+    public FileData uploadFileToFS(MultipartFile file, Long orderId) throws IOException {
         if (file.isEmpty())
             throw new FileNotFoundException("File not found");
         String extension = FilenameUtils.getExtension(file.getOriginalFilename());
@@ -41,6 +44,7 @@ public class StorageService {
         String filePath = FOLDER_PATH + newFilename;
 
         FileData fileData = dataRepo.save(new FileData(
+                orderId,
                 newFilename,
                 file.getContentType(),
                 filePath));
@@ -53,6 +57,11 @@ public class StorageService {
         FileData fileData = dataRepo.findByName(fileName).orElseThrow(() -> new EntityNotFoundException("File not found"));
         String filePath=fileData.getFilePath();
         return Files.readAllBytes(new File(filePath).toPath());
+    }
+
+    public List<String> findAllImageNamesByOrderId(Long orderId) {
+        List<String> orderNames = dataRepo.findAllByOrderId(orderId);
+        return orderNames;
     }
 
 

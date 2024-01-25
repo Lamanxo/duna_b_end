@@ -38,9 +38,7 @@ public class OrdersService {
         OrderTechnic orderTechnic = getOrderTechnicById(orderId);
         if (!orderTechnic.getUser().getEmail().equals(principal.getName()))
             throw new UserNotOwnerOfOrderException("User with email: " + principal.getName() + " not owns of order: " + orderId);
-        FileData fileData = storageService.uploadFileToFS(file);
-        orderTechnic.getImages().add(fileData);
-        orderTechnicRepo.save(orderTechnic);
+        storageService.uploadFileToFS(file, orderId);
         return "Image added successfully";
     }
 
@@ -78,7 +76,6 @@ public class OrdersService {
         technic.setVehicleModel(vehicleService.findVehicleModelByName(technicIn.getVehicleModel()));
         technic.setManufacturingDate(technicIn.getManufacturerDate());
         technic.setAdditionalEquipment(technicIn.getAdditionalEquipment());
-        technic.setImages(new ArrayList<>());
         technic.setUnitAmount(technicIn.getUnitAmount());
         technic.setShiftType(ShiftType.values()[technicIn.getShiftType()]);
         technic.setAddress(technicIn.getAddress());

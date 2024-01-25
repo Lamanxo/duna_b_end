@@ -21,6 +21,7 @@ create table email_token (
 
 create table file_data (
   id                bigserial,
+  order_id          bigserial,
   name              varchar,
   type              varchar,
   file_path         varchar,
@@ -84,13 +85,13 @@ CREATE TABLE order_technic (
   primary key (id)
 );
 
-CREATE TABLE images_orders (
+/*CREATE TABLE images_orders (
   order_id          bigserial not null,
   image_id          bigserial not null,
   primary key (order_id, image_id),
   foreign key (order_id) references order_technic (id),
   foreign key (image_id) references file_data (id)
-);
+);*/
 
 insert into technic_type (name)
 values ('Tractor');

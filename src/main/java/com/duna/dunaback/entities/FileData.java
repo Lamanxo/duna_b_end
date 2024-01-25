@@ -17,6 +17,8 @@ public class FileData {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+    @Column(name = "order_id")
+    private Long orderId;
     @Column(name = "name")
     private String name;
     @Column(name = "type")
@@ -24,7 +26,8 @@ public class FileData {
     @Column(name = "file_path")
     private String filePath;
 
-    public FileData(String name, String type, String filePath) {
+    public FileData(Long orderId, String name, String type, String filePath) {
+        this.orderId = orderId;
         this.name = name;
         this.type = type;
         this.filePath = filePath;
