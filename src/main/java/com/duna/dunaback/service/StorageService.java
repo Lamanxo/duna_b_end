@@ -16,6 +16,7 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -54,13 +55,17 @@ public class StorageService {
     }
 
     public byte[] downloadImageFromFileSystem(String fileName) throws IOException {
-        FileData fileData = dataRepo.findByName(fileName).orElseThrow(() -> new EntityNotFoundException("File not found"));
+        FileData fileData = findByNameOrException(fileName);
         String filePath=fileData.getFilePath();
         return Files.readAllBytes(new File(filePath).toPath());
     }
 
+    public FileData findByNameOrException(String fileName) {
+        return dataRepo.findByName(fileName).orElseThrow(() -> new EntityNotFoundException("File not found"));
+    }
+
     public List<String> findAllImageNamesByOrderId(Long orderId) {
-        List<String> orderNames = dataRepo.findAllByOrderId(orderId);
+        List<String> orderNames = dataRepo.findAllByOrderId(orderId).stream().map(fileData -> fileData.getName()).collect(Collectors.toList());
         return orderNames;
     }
 

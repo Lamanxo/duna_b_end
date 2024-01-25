@@ -35,12 +35,6 @@ public class OrderTechnic {
     private Integer manufacturingDate;
     @Column(name = "additional_equipment")
     private String additionalEquipment;
-    /*@OneToMany
-    @JoinTable
-            (name = "order_technic",
-            joinColumns = @JoinColumn (name = "order_id"),
-            inverseJoinColumns = @JoinColumn(name = "image_id"))
-    private List<FileData> images;*/
     @Column(name = "unit_amount")
     private Integer unitAmount;
     @Enumerated(EnumType.ORDINAL)

@@ -34,11 +34,11 @@ public class UserService implements UserDetailsService {
     private final EmailSenderService emailSenderService;
 
 
-    //test
+    //test_____________
     public User getUserById(Long id) {
         return userRepo.findById(id).orElseThrow(()-> new UsernameNotFoundException("User with id " + id + "not found"));
     }
-
+    //test_____________
     public User getUserByPhone(String phone) {
         return userRepo.findByPhone(phone).orElseThrow(()->
                 new PhoneNotFoundException("Phone number " + phone + " not found"));

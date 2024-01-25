@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -26,7 +27,6 @@ public class OrdersService {
     private final OrderTechnicRepo orderTechnicRepo;
     private final VehicleService vehicleService;
     private final UserService userService;
-
     private final StorageService storageService;
 
     public OrderTechnicOut addOrderTechnic(OrderTechnicIn technicIn, Principal principal) {
@@ -35,18 +35,32 @@ public class OrdersService {
     }
 
     public String addPhotoToOrder(MultipartFile file, Principal principal, Long orderId) throws IOException {
-        OrderTechnic orderTechnic = getOrderTechnicById(orderId);
-        if (!orderTechnic.getUser().getEmail().equals(principal.getName()))
-            throw new UserNotOwnerOfOrderException("User with email: " + principal.getName() + " not owns of order: " + orderId);
+        checkOrderOwner(principal, orderId);
         storageService.uploadFileToFS(file, orderId);
         return "Image added successfully";
     }
 
-    public OrderTechnic getOrderTechnicById(Long id) {
+    public List<String> findAllImageNamesByOrderId(Principal principal, Long orderId) {
+        checkOrderOwner(principal, orderId);
+        return storageService.findAllImageNamesByOrderId(orderId);
+    }
+
+    public byte[] downloadOrderImageByName(String fileName, Principal principal) throws IOException {
+        FileData fileData = storageService.findByNameOrException(fileName);
+        checkOrderOwner(principal, fileData.getOrderId());
+        return storageService.downloadImageFromFileSystem(fileName);
+    }
+
+    private OrderTechnic getOrderTechnicById(Long id) {
         return orderTechnicRepo.findById(id).orElseThrow(() ->
                 new OrderNotFoundException("OrderTechnic with id: " + id + " not found"));
     }
 
+    private void checkOrderOwner(Principal principal, Long orderId) {
+        OrderTechnic orderTechnic = getOrderTechnicById(orderId);
+        if (!orderTechnic.getUser().getEmail().equals(principal.getName()))
+            throw new UserNotOwnerOfOrderException("User with email: " + principal.getName() + " not owns of order: " + orderId);
+    }
 
     private OrderTechnicOut makeOrderTechnicOut(OrderTechnic technic) {
         OrderTechnicOut technicOut = new OrderTechnicOut();

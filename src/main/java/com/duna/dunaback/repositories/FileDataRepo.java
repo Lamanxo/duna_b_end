@@ -10,5 +10,5 @@ import java.util.Optional;
 @Repository
 public interface FileDataRepo extends JpaRepository<FileData, Long> {
     Optional<FileData> findByName(String name);
-    List<String> findAllByOrderId(Long orderId);
+    List<FileData> findAllByOrderId(Long orderId);
 }
