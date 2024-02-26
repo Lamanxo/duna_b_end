@@ -1,4 +1,4 @@
-package com.duna.dunaback.entities;
+package com.duna.dunaback.entities_mini;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

@@ -1,6 +1,6 @@
 package com.duna.dunaback.repositories;
 
-import com.duna.dunaback.entities.TechnicType;
+import com.duna.dunaback.entities_mini.TechnicType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

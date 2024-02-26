@@ -3,7 +3,7 @@ package com.duna.dunaback.controllers;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.duna.dunaback.entities.Role;
+import com.duna.dunaback.entities_mini.Role;
 import com.duna.dunaback.service.RoleService;
 
 import java.security.Principal;

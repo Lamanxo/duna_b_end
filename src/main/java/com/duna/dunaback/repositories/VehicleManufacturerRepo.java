@@ -1,6 +1,6 @@
 package com.duna.dunaback.repositories;
 
-import com.duna.dunaback.entities.VehicleManufacturer;
+import com.duna.dunaback.entities_mini.VehicleManufacturer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

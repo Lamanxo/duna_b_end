@@ -85,6 +85,78 @@ CREATE TABLE order_technic (
   primary key (id)
 );
 
+CREATE TABLE dump_type (
+ id                             bigserial,
+ name                           varchar,
+ primary key (id)
+);
+
+CREATE TABLE dump_vehicle_class (
+  id                            bigserial,
+  name                          varchar,
+  primary key (id)
+);
+
+CREATE TABLE hazard_class (
+  id                            bigserial,
+  name                          varchar,
+  primary key (id)
+  );
+
+CREATE TABLE junkyard_order_type (
+ id                            bigserial,
+ name                          varchar,
+ primary key (id)
+);
+
+CREATE TABLE material_fractions (
+ id                            bigserial,
+ name                          varchar,
+ primary key (id)
+);
+
+CREATE TABLE non_metal_material_type (
+ id                            bigserial,
+ name                          varchar,
+ primary key (id)
+);
+
+CREATE TABLE order_junkyard (
+ id                             bigserial,
+ junkyard_order_type_id         bigserial,
+ dump_type_id                   bigserial,
+ hazard_class_id                bigserial,
+ dump_vehicle_class_id          bigserial,
+ weight_type_id                 bigserial,
+ weight                         bigserial,
+ address                        varchar,
+ description                    varchar,
+ price                          bigserial,
+ user_id                        bigserial,
+ created_at                     date,
+ is_verified                    boolean,
+ is_active                      boolean,
+ primary key (id)
+);
+
+CREATE TABLE order_non_met_material (
+  id                            bigserial,
+  non_metal_material_type_id    bigserial,
+  material_fractions_id         bigserial,
+  weight_type_id                bigserial,
+  shift_type_id                 bigserial,
+  delivery_type_id              bigserial,
+  address                       varchar,
+  description                   varchar,
+  price                         bigserial,
+  payment_type_id               bigserial,
+  user_id                       bigserial,
+  created_at                    date,
+  is_verified                   boolean,
+  is_active                     boolean,
+  primary key (id)
+);
+
 /*CREATE TABLE images_orders (
   order_id          bigserial not null,
   image_id          bigserial not null,

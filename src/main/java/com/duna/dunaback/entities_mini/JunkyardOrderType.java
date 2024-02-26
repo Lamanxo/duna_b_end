@@ -1,6 +1,7 @@
-package com.duna.dunaback.entities;
+package com.duna.dunaback.entities_mini;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -8,8 +9,9 @@ import javax.persistence.*;
 @Entity
 @Setter
 @Getter
-@Table(name = "vehicle_manufacturer")
-public class VehicleManufacturer {
+@NoArgsConstructor
+@Table(name = "junkyard_order_type")
+public class JunkyardOrderType {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,5 +1,8 @@
 package com.duna.dunaback.entities;
 
+import com.duna.dunaback.entities_mini.TechnicType;
+import com.duna.dunaback.entities_mini.VehicleManufacturer;
+import com.duna.dunaback.entities_mini.VehicleModel;
 import com.duna.dunaback.enums.PaymentType;
 import com.duna.dunaback.enums.PaymentUnit;
 import com.duna.dunaback.enums.ShiftType;
@@ -9,7 +12,6 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
 @Setter

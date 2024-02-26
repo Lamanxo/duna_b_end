@@ -3,7 +3,7 @@ package com.duna.dunaback.service;
 import com.duna.dunaback.repositories.RoleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import com.duna.dunaback.entities.Role;
+import com.duna.dunaback.entities_mini.Role;
 
 @Service
 @RequiredArgsConstructor

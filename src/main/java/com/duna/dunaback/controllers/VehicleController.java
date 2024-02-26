@@ -1,8 +1,8 @@
 package com.duna.dunaback.controllers;
 
-import com.duna.dunaback.entities.TechnicType;
-import com.duna.dunaback.entities.VehicleManufacturer;
-import com.duna.dunaback.entities.VehicleModel;
+import com.duna.dunaback.entities_mini.TechnicType;
+import com.duna.dunaback.entities_mini.VehicleManufacturer;
+import com.duna.dunaback.entities_mini.VehicleModel;
 import com.duna.dunaback.service.VehicleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;

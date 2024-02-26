@@ -1,22 +1,21 @@
-package com.duna.dunaback.entities;
+package com.duna.dunaback.entities_mini;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
-@Getter
 @Setter
-@Table(name = "vehicle_model")
-public class VehicleModel {
+@Getter
+@NoArgsConstructor
+@Table(name = "dump_type")
+public class DumpType {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "name")
     private String name;
-    @ManyToOne
-    @JoinColumn(name = "manufacturer_id")
-    private VehicleManufacturer manufacturer;
 }

@@ -1,5 +1,6 @@
 package com.duna.dunaback.entities;
 
+import com.duna.dunaback.entities_mini.Role;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;

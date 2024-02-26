@@ -1,6 +1,6 @@
 package com.duna.dunaback.repositories;
 
-import com.duna.dunaback.entities.VehicleModel;
+import com.duna.dunaback.entities_mini.VehicleModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
