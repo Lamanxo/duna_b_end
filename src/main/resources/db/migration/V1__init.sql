@@ -157,13 +157,6 @@ CREATE TABLE order_non_met_material (
   primary key (id)
 );
 
-/*CREATE TABLE images_orders (
-  order_id          bigserial not null,
-  image_id          bigserial not null,
-  primary key (order_id, image_id),
-  foreign key (order_id) references order_technic (id),
-  foreign key (image_id) references file_data (id)
-);*/
 
 insert into technic_type (name)
 values ('Tractor');
